@@ -1,0 +1,78 @@
+{
+    "sourceFile": "static/script.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 15,
+            "patches": [
+                {
+                    "date": 1701868037422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1701868154320,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,127 @@\n+jQuery(document).ready(function ($) {\n+\tjQuery(document).on(\"click\", \".iconInner\", function (e) {\n+\t\tjQuery(this).parents(\".botIcon\").addClass(\"showBotSubject\");\n+\t\t$(\"[name='msg']\").focus();\n+\t});\n+\n+\tjQuery(document).on(\"click\", \".closeBtn, .chat_close_icon\", function (e) {\n+\t\tjQuery(this).parents(\".botIcon\").removeClass(\"showBotSubject\");\n+\t\tjQuery(this).parents(\".botIcon\").removeClass(\"showMessenger\");\n+\t});\n+\n+\tjQuery(document).on(\"submit\", \"#botSubject\", function (e) {\n+\t\te.preventDefault();\n+\n+\t\tjQuery(this).parents(\".botIcon\").removeClass(\"showBotSubject\");\n+\t\tjQuery(this).parents(\".botIcon\").addClass(\"showMessenger\");\n+\t});\n+\n+\t/* Chatboat Code */\n+\t$(document).on(\"submit\", \"#messenger\", function (e) {\n+\t\te.preventDefault();\n+\n+\t\tvar val = $(\"[name=msg]\").val().toLowerCase();\n+\t\tvar mainval = $(\"[name=msg]\").val();\n+\t\tname = \"\";\n+\t\tnowtime = new Date();\n+\t\tnowhoue = nowtime.getHours();\n+\n+\t\tfunction userMsg(msg) {\n+\t\t\t$(\".Messages_list\").append(\n+\t\t\t\t'<div class=\"msg user\"><span class=\"avtr\"><figure style=\"background-image: url(https://mrseankumar25.github.io/Sandeep-Kumar-Frontend-Developer-UI-Specialist/images/avatar.png)\"></figure></span><span class=\"responsText\">' +\n+\t\t\t\t\tmainval +\n+\t\t\t\t\t\"</span></div>\"\n+\t\t\t);\n+\t\t}\n+\t\tfunction appendMsg(msg) {\n+\t\t\t$(\".Messages_list\").append(\n+\t\t\t\t'<div class=\"msg\"><span class=\"avtr\"><figure style=\"background-image: url(https://mrseankumar25.github.io/Sandeep-Kumar-Frontend-Developer-UI-Specialist/images/avatar.png)\"></figure></span><span class=\"responsText\">' +\n+\t\t\t\t\tmsg +\n+\t\t\t\t\t\"</span></div>\"\n+\t\t\t);\n+\t\t\t$(\"[name='msg']\").val(\"\");\n+\t\t}\n+\n+\t\tuserMsg(mainval);\n+\t\tif (\n+\t\t\tval.indexOf(\"hello\") > -1 ||\n+\t\t\tval.indexOf(\"hi\") > -1 ||\n+\t\t\tval.indexOf(\"good morning\") > -1 ||\n+\t\t\tval.indexOf(\"good afternoon\") > -1 ||\n+\t\t\tval.indexOf(\"good evening\") > -1 ||\n+\t\t\tval.indexOf(\"good night\") > -1\n+\t\t) {\n+\t\t\tif (nowhoue >= 12 && nowhoue <= 16) {\n+\t\t\t\tappendMsg(\"good afternoon\");\n+\t\t\t} else if (nowhoue >= 10 && nowhoue <= 12) {\n+\t\t\t\tappendMsg(\"hi\");\n+\t\t\t} else if (nowhoue >= 0 && nowhoue <= 10) {\n+\t\t\t\tappendMsg(\"good morning\");\n+\t\t\t} else {\n+\t\t\t\tappendMsg(\"good evening\");\n+\t\t\t}\n+\n+\t\t\tappendMsg(\"what's you name?\");\n+\t\t} else if (val.indexOf(\"i have problem with\") > -1) {\n+\t\t\tif (val.indexOf(\"girlfriend\") > -1 || val.indexOf(\"gf\") > -1) {\n+\t\t\t\tappendMsg(\"take out your girlfriend, for dinner or movie.\");\n+\t\t\t\tappendMsg(\"is it helpful? (yes/no)\");\n+\t\t\t} else if (val.indexOf(\"boyfriend\") > -1 || val.indexOf(\"bf\") > -1) {\n+\t\t\t\tappendMsg(\"bye something for him.\");\n+\t\t\t\tappendMsg(\"is it helpful? (yes/no)\");\n+\t\t\t} else {\n+\t\t\t\tappendMsg(\n+\t\t\t\t\t\"sorry, i'm not able to get you point, please ask something else.\"\n+\t\t\t\t);\n+\t\t\t}\n+\t\t} else if (val.indexOf(\"yes\") > -1) {\n+\t\t\tvar nowtime = new Date();\n+\t\t\tvar nowhoue = nowtime.getHours();\n+\t\t\tappendMsg(\"it's my pleaser that i can help you\");\n+\n+\t\t\tsaybye();\n+\t\t} else if (val.indexOf(\"no\") > -1) {\n+\t\t\tvar nowtime = new Date();\n+\t\t\tvar nowhoue = nowtime.getHours();\n+\t\t\tappendMsg(\"it's my bad that i can't able to help you. please try letter\");\n+\n+\t\t\tsaybye();\n+\t\t} else if (\n+\t\t\tval.indexOf(\"my name is \") > -1 ||\n+\t\t\tval.indexOf(\"i am \") > -1 ||\n+\t\t\tval.indexOf(\"i'm \") > -1 ||\n+\t\t\tval.split(\" \").length < 2\n+\t\t) {\n+\t\t\t/*|| mainval != \"\"*/\n+\t\t\t// var name = \"\";\n+\t\t\tif (val.indexOf(\"my name is\") > -1) {\n+\t\t\t\tname = val.replace(\"my name is\", \"\");\n+\t\t\t} else if (val.indexOf(\"i am\") > -1) {\n+\t\t\t\tname = val.replace(\"i am\", \"\");\n+\t\t\t} else if (val.indexOf(\"i'm\") > -1) {\n+\t\t\t\tname = val.replace(\"i'm\", \"\");\n+\t\t\t} else {\n+\t\t\t\tname = mainval;\n+\t\t\t}\n+\n+\t\t\t// appendMsg(\"hi \" + name + \", how can i help you?\");\n+\t\t\tappendMsg(\"hi \" + name + \", how can i help you?\");\n+\t\t} else {\n+\t\t\tappendMsg(\"sorry i'm not able to understand what do you want to say\");\n+\t\t}\n+\n+\t\tfunction saybye() {\n+\t\t\tif (nowhoue <= 10) {\n+\t\t\t\tappendMsg(\" have nice day! :)\");\n+\t\t\t} else if (nowhoue >= 11 || nowhoue <= 20) {\n+\t\t\t\tappendMsg(\" bye!\");\n+\t\t\t} else {\n+\t\t\t\tappendMsg(\" good night!\");\n+\t\t\t}\n+\t\t}\n+\n+\t\tvar lastMsg = $(\".Messages_list\").find(\".msg\").last().offset().top;\n+\t\t$(\".Messages\").animate({ scrollTop: lastMsg }, \"slow\");\n+\t});\n+\t/* Chatboat Code */\n+});\n"
+                },
+                {
+                    "date": 1701868750235,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,76 +41,10 @@\n \t\t\t);\n \t\t\t$(\"[name='msg']\").val(\"\");\n \t\t}\n \n-\t\tuserMsg(mainval);\n-\t\tif (\n-\t\t\tval.indexOf(\"hello\") > -1 ||\n-\t\t\tval.indexOf(\"hi\") > -1 ||\n-\t\t\tval.indexOf(\"good morning\") > -1 ||\n-\t\t\tval.indexOf(\"good afternoon\") > -1 ||\n-\t\t\tval.indexOf(\"good evening\") > -1 ||\n-\t\t\tval.indexOf(\"good night\") > -1\n-\t\t) {\n-\t\t\tif (nowhoue >= 12 && nowhoue <= 16) {\n-\t\t\t\tappendMsg(\"good afternoon\");\n-\t\t\t} else if (nowhoue >= 10 && nowhoue <= 12) {\n-\t\t\t\tappendMsg(\"hi\");\n-\t\t\t} else if (nowhoue >= 0 && nowhoue <= 10) {\n-\t\t\t\tappendMsg(\"good morning\");\n-\t\t\t} else {\n-\t\t\t\tappendMsg(\"good evening\");\n-\t\t\t}\n+\t\t\n \n-\t\t\tappendMsg(\"what's you name?\");\n-\t\t} else if (val.indexOf(\"i have problem with\") > -1) {\n-\t\t\tif (val.indexOf(\"girlfriend\") > -1 || val.indexOf(\"gf\") > -1) {\n-\t\t\t\tappendMsg(\"take out your girlfriend, for dinner or movie.\");\n-\t\t\t\tappendMsg(\"is it helpful? (yes/no)\");\n-\t\t\t} else if (val.indexOf(\"boyfriend\") > -1 || val.indexOf(\"bf\") > -1) {\n-\t\t\t\tappendMsg(\"bye something for him.\");\n-\t\t\t\tappendMsg(\"is it helpful? (yes/no)\");\n-\t\t\t} else {\n-\t\t\t\tappendMsg(\n-\t\t\t\t\t\"sorry, i'm not able to get you point, please ask something else.\"\n-\t\t\t\t);\n-\t\t\t}\n-\t\t} else if (val.indexOf(\"yes\") > -1) {\n-\t\t\tvar nowtime = new Date();\n-\t\t\tvar nowhoue = nowtime.getHours();\n-\t\t\tappendMsg(\"it's my pleaser that i can help you\");\n-\n-\t\t\tsaybye();\n-\t\t} else if (val.indexOf(\"no\") > -1) {\n-\t\t\tvar nowtime = new Date();\n-\t\t\tvar nowhoue = nowtime.getHours();\n-\t\t\tappendMsg(\"it's my bad that i can't able to help you. please try letter\");\n-\n-\t\t\tsaybye();\n-\t\t} else if (\n-\t\t\tval.indexOf(\"my name is \") > -1 ||\n-\t\t\tval.indexOf(\"i am \") > -1 ||\n-\t\t\tval.indexOf(\"i'm \") > -1 ||\n-\t\t\tval.split(\" \").length < 2\n-\t\t) {\n-\t\t\t/*|| mainval != \"\"*/\n-\t\t\t// var name = \"\";\n-\t\t\tif (val.indexOf(\"my name is\") > -1) {\n-\t\t\t\tname = val.replace(\"my name is\", \"\");\n-\t\t\t} else if (val.indexOf(\"i am\") > -1) {\n-\t\t\t\tname = val.replace(\"i am\", \"\");\n-\t\t\t} else if (val.indexOf(\"i'm\") > -1) {\n-\t\t\t\tname = val.replace(\"i'm\", \"\");\n-\t\t\t} else {\n-\t\t\t\tname = mainval;\n-\t\t\t}\n-\n-\t\t\t// appendMsg(\"hi \" + name + \", how can i help you?\");\n-\t\t\tappendMsg(\"hi \" + name + \", how can i help you?\");\n-\t\t} else {\n-\t\t\tappendMsg(\"sorry i'm not able to understand what do you want to say\");\n-\t\t}\n-\n \t\tfunction saybye() {\n \t\t\tif (nowhoue <= 10) {\n \t\t\t\tappendMsg(\" have nice day! :)\");\n \t\t\t} else if (nowhoue >= 11 || nowhoue <= 20) {\n"
+                },
+                {
+                    "date": 1701868756545,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,8 +41,9 @@\n \t\t\t);\n \t\t\t$(\"[name='msg']\").val(\"\");\n \t\t}\n \n+\t\tuserMsg(mainval);\n \t\t\n \n \t\tfunction saybye() {\n \t\t\tif (nowhoue <= 10) {\n"
+                },
+                {
+                    "date": 1701868777716,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,11 @@\n \t\t}\n \n \t\tuserMsg(mainval);\n \t\t\n+        appendMsg(\"hi \" + name + \", how can i help you?\");\n \n+\n \t\tfunction saybye() {\n \t\t\tif (nowhoue <= 10) {\n \t\t\t\tappendMsg(\" have nice day! :)\");\n \t\t\t} else if (nowhoue >= 11 || nowhoue <= 20) {\n"
+                },
+                {
+                    "date": 1701868783630,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n \t\t}\n \n \t\tuserMsg(mainval);\n \t\t\n-        appendMsg(\"hi \" + name + \", how can i help you?\");\n+        appendMsg(\"test\");\n \n \n \t\tfunction saybye() {\n \t\t\tif (nowhoue <= 10) {\n"
+                },
+                {
+                    "date": 1701868835559,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,8 +43,11 @@\n \t\t}\n \n \t\tuserMsg(mainval);\n \t\t\n+        mainval\n+\n+\n         appendMsg(\"test\");\n \n \n \t\tfunction saybye() {\n"
+                },
+                {
+                    "date": 1701868843263,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,8 +44,9 @@\n \n \t\tuserMsg(mainval);\n \t\t\n         mainval\n+        \n \n \n         appendMsg(\"test\");\n \n"
+                },
+                {
+                    "date": 1701868867748,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,17 +41,24 @@\n \t\t\t);\n \t\t\t$(\"[name='msg']\").val(\"\");\n \t\t}\n \n-\t\tuserMsg(mainval);\n+\n+        // userMsg(mainval);\n+\n+        if (mainval.trim() === '') {\n+            appendMsg(\"test\");\n+        }\n+\n \t\t\n-        mainval\n+\t\t\n         \n \n \n-        appendMsg(\"test\");\n \n+       \n \n+\n \t\tfunction saybye() {\n \t\t\tif (nowhoue <= 10) {\n \t\t\t\tappendMsg(\" have nice day! :)\");\n \t\t\t} else if (nowhoue >= 11 || nowhoue <= 20) {\n"
+                },
+                {
+                    "date": 1701868879411,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,12 +42,14 @@\n \t\t\t$(\"[name='msg']\").val(\"\");\n \t\t}\n \n \n-        // userMsg(mainval);\n+        \n \n         if (mainval.trim() === '') {\n             appendMsg(\"test\");\n+        }else{\n+            userMsg(mainval);\n         }\n \n \t\t\n \t\t\n"
+                },
+                {
+                    "date": 1701868896244,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,9 @@\n \n         \n \n         if (mainval.trim() === '') {\n-            appendMsg(\"test\");\n+            appendMsg(\"Please enter a question.\");\n         }else{\n             userMsg(mainval);\n         }\n \n"
+                },
+                {
+                    "date": 1701868909722,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,8 +50,10 @@\n         }else{\n             userMsg(mainval);\n         }\n \n+        \n+\n \t\t\n \t\t\n         \n \n"
+                },
+                {
+                    "date": 1701868936965,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,13 +46,20 @@\n         \n \n         if (mainval.trim() === '') {\n             appendMsg(\"Please enter a question.\");\n+            return\n         }else{\n             userMsg(mainval);\n         }\n \n-        \n+        fetch('/process', {\n+            method: 'POST',\n+            headers: {\n+                'Content-Type': 'application/x-www-form-urlencoded',\n+            },\n+            body: 'userInput=' + encodeURIComponent(userInput)\n+        })\n \n \t\t\n \t\t\n         \n"
+                },
+                {
+                    "date": 1701868956086,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -58,8 +58,13 @@\n                 'Content-Type': 'application/x-www-form-urlencoded',\n             },\n             body: 'userInput=' + encodeURIComponent(userInput)\n         })\n+        .then(response => response.json())\n+        .then(data => {\n+            document.getElementById('botResponse').innerText = 'Bot: ' + data.response;\n+        })\n+        .catch(error => console.error('Error:', error));\n \n \t\t\n \t\t\n         \n"
+                },
+                {
+                    "date": 1701868972908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,11 @@\n             body: 'userInput=' + encodeURIComponent(userInput)\n         })\n         .then(response => response.json())\n         .then(data => {\n-            document.getElementById('botResponse').innerText = 'Bot: ' + data.response;\n+            // document.getElementById('botResponse').innerText = 'Bot: ' + ;\n+            appendMsg(data.response);\n+\n         })\n         .catch(error => console.error('Error:', error));\n \n \t\t\n"
+                },
+                {
+                    "date": 1701869173811,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,15 +56,14 @@\n             method: 'POST',\n             headers: {\n                 'Content-Type': 'application/x-www-form-urlencoded',\n             },\n-            body: 'userInput=' + encodeURIComponent(userInput)\n+            body: 'userInput=' + encodeURIComponent(mainval)\n         })\n         .then(response => response.json())\n         .then(data => {\n             // document.getElementById('botResponse').innerText = 'Bot: ' + ;\n             appendMsg(data.response);\n-\n         })\n         .catch(error => console.error('Error:', error));\n \n \t\t\n"
+                }
+            ],
+            "date": 1701868037422,
+            "name": "Commit-0",
+            "content": ""
+        }
+    ]
+}
